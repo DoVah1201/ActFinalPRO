@@ -7,18 +7,57 @@ import java.time.LocalDateTime;
 @Table(name = "notas")
 public class Nota {
 
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-@JoinColumn(name = "usuario_id", nullable = false)
+    @JoinColumn(name = "usuario_id", nullable = false)
 
-private String titulo;
+    private String titulo;
+    private String contenido;
+    private LocalDateTime fechaCreacion;
 
+    public Nota() {
+    }
 
-private String contenido;
+    public Nota(String titulo, String contenido, LocalDateTime fechaCreacion) {
+        this.titulo = titulo;
+        this.contenido = contenido;
+        this.fechaCreacion = fechaCreacion;
+    }
 
+    public Long getId() {
+        return id;
+    }
 
-private LocalDateTime fechaCreacion;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getContenido() {
+        return contenido;
+    }
+
+    public void setContenido(String contenido) {
+        this.contenido = contenido;
+    }
+
+    public LocalDateTime getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public void setFechaCreacion(LocalDateTime fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
+    }
+
+    
 
 }
