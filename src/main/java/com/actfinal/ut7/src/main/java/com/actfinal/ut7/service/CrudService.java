@@ -1,4 +1,4 @@
-package com.actfinal.ut7.service;
+package com.actfinal.ut7.src.main.java.com.actfinal.ut7.service;
 
 import java.util.List;
 import java.util.Optional;

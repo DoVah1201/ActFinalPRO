@@ -1,4 +1,4 @@
-package com.actfinal.ut7;
+package com.actfinal.ut7.src.main.java.com.actfinal.ut7;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
