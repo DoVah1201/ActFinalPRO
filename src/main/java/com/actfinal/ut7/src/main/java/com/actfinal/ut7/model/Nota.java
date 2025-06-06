@@ -3,6 +3,7 @@ package com.actfinal.ut7.src.main.java.com.actfinal.ut7.model;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+
 @Entity
 @Table(name = "notas")
 public class Nota {
@@ -15,12 +16,19 @@ public class Nota {
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
+    @Column(nullable = false, length = 100)
     private String titulo;
+
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String contenido;
+
+    @Column(name = "fecha_creacion", nullable = false)
     private LocalDateTime fechaCreacion;
 
+    
     public Nota() { }
 
+    
     public Nota(String titulo, String contenido, LocalDateTime fechaCreacion, Usuario usuario) {
         this.titulo = titulo;
         this.contenido = contenido;
@@ -28,7 +36,7 @@ public class Nota {
         this.usuario = usuario;
     }
 
-    // Getters y setters
+    
     public Long getId() {
         return id;
     }
