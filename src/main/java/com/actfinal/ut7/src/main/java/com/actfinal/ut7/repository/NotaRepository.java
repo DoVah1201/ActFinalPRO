@@ -20,8 +20,8 @@ public interface NotaRepository extends JpaRepository<Nota, Long> {
     List<Nota> findByUsuarioId(Long usuarioId, Sort sort);
 
     
-    List<Nota> findByTituloContainingIgnoreCase(String titulo);
+    List<Nota> findByTituloIgnoreCase(String titulo);
 
     
-    List<Nota> findByContenidoContainingIgnoreCase(String contenido);
+    List<Nota> findByContenidoIgnoreCase(String contenido);
 }

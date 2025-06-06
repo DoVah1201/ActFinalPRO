@@ -21,7 +21,7 @@ public abstract class AbstractNotaService extends AbstractCrudService<Nota, Long
         if (titulo == null || titulo.trim().isEmpty()) {
             throw new IllegalArgumentException("El título no puede estar vacío");
         }
-        return notaRepository.findByTituloContainingIgnoreCase(titulo);
+        return notaRepository.findByTituloIgnoreCase(titulo);
     }
 
     
@@ -29,6 +29,6 @@ public abstract class AbstractNotaService extends AbstractCrudService<Nota, Long
         if (contenido == null || contenido.trim().isEmpty()) {
             throw new IllegalArgumentException("El contenido no puede estar vacío");
         }
-        return notaRepository.findByContenidoContainingIgnoreCase(contenido);
+        return notaRepository.findByContenidoIgnoreCase(contenido);
     }
 }
