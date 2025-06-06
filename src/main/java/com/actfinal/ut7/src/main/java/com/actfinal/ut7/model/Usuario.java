@@ -1,13 +1,8 @@
 package com.actfinal.ut7.src.main.java.com.actfinal.ut7.model;
 
+import jakarta.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Usuario")
@@ -21,9 +16,8 @@ public class Usuario {
     private String email;
     private String passwordHash;
 
-    @OneToMany
-    private List<Nota> nota;
-
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Nota> notas = new ArrayList<>(); 
     public Usuario() {}
 
     public Usuario(String nombre, String email, String passwordHash) {
@@ -31,6 +25,18 @@ public class Usuario {
         this.email = email;
         this.passwordHash = passwordHash;
     }
+
+
+    public void addNota(Nota nota) {
+        notas.add(nota);
+        nota.setUsuario(this);
+    }
+
+    public void removeNota(Nota nota) {
+        notas.remove(nota);
+        nota.setUsuario(null);
+    }
+
 
     public Long getId() {
         return id;
@@ -62,5 +68,13 @@ public class Usuario {
 
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
+    }
+
+    public List<Nota> getNotas() {
+        return notas;
+    }
+
+    public void setNotas(List<Nota> notas) {
+        this.notas = notas;
     }
 }
