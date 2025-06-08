@@ -186,6 +186,6 @@ spring.h2.console.enabled=true
 
 ---
 
-## 📎 Licencia
+## 📎 Hecho por
 
-MIT © 2025 - Proyecto académico para UT6 y UT7 - POO Avanzada y APIs REST.
+Saúl González y Marisa Peña
