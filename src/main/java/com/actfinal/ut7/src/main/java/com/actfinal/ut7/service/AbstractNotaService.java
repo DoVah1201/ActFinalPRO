@@ -2,13 +2,15 @@ package com.actfinal.ut7.src.main.java.com.actfinal.ut7.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
+
 import com.actfinal.ut7.src.main.java.com.actfinal.ut7.model.Nota;
 import com.actfinal.ut7.src.main.java.com.actfinal.ut7.repository.NotaRepository;
 
 
-public abstract class AbstractNotaService extends AbstractCrudService<Nota, Long> {
+public abstract class AbstractNotaService extends AbstractCrudService<Nota, Long> implements NotaService {
 
-    protected final NotaRepository notaRepository;
+    private final NotaRepository notaRepository;
 
     
     public AbstractNotaService(NotaRepository notaRepository) {
@@ -17,18 +19,10 @@ public abstract class AbstractNotaService extends AbstractCrudService<Nota, Long
     }
 
     
-    public List<Nota> buscarPorTitulo(String titulo) {
-        if (titulo == null || titulo.trim().isEmpty()) {
-            throw new IllegalArgumentException("El título no puede estar vacío");
-        }
-        return notaRepository.findByTituloIgnoreCase(titulo);
-    }
-
-    
-    public List<Nota> buscarPorContenido(String contenido) {
-        if (contenido == null || contenido.trim().isEmpty()) {
-            throw new IllegalArgumentException("El contenido no puede estar vacío");
-        }
-        return notaRepository.findByContenidoIgnoreCase(contenido);
+     @Override
+    public List<Nota> findByUsuarioId(Long usuarioId, String order) {
+        Sort sort = order.equalsIgnoreCase("desc") ? Sort.by("fechaCreacion").descending()
+                                                   : Sort.by("fechaCreacion").ascending();
+        return notaRepository.findByUsuarioId(usuarioId, sort);
     }
 }
