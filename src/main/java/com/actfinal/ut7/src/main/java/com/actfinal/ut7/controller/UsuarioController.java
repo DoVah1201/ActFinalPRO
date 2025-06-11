@@ -4,10 +4,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 import com.actfinal.ut7.src.main.java.com.actfinal.ut7.model.Usuario;
 import com.actfinal.ut7.src.main.java.com.actfinal.ut7.service.UsuarioService;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/usuarios")

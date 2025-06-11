@@ -1,22 +1,16 @@
 package com.actfinal.ut7.src.main.java.com.actfinal.ut7.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
-
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
-
-
 import com.actfinal.ut7.src.main.java.com.actfinal.ut7.model.Nota;
-import com.actfinal.ut7.src.main.java.com.actfinal.ut7.model.Usuario;
 import com.actfinal.ut7.src.main.java.com.actfinal.ut7.service.NotaService;
 
-
-
 @RestController
-@RequestMapping("/api/v1/notas")
-
+@RequestMapping("/api/notas")
 public class NotaController {
 
     private final NotaService notaService;
@@ -26,34 +20,47 @@ public class NotaController {
     }
 
     @GetMapping
-    public List<Nota> getNotas(@RequestParam(required = false) Long usuarioId,
-                               @RequestParam(defaultValue = "asc") String order) {
-        if (usuarioId != null) {
-            return NotaService.findByUsuarioId(usuarioId, order);
-        }
-        return notaService.getAll();
+    public ResponseEntity<List<Nota>> getAllNotas() {
+        List<Nota> notas = notaService.getAll();
+        return ResponseEntity.ok(notas);
     }
 
     @GetMapping("/{id}")
-    public Nota getById(@PathVariable Long id) {
-        return notaService.getById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    public ResponseEntity<Nota> getNotaById(@PathVariable Long id) {
+        return notaService.getById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/usuario/{usuarioId}")
+    public ResponseEntity<List<Nota>> getNotasByUsuario(
+            @PathVariable Long usuarioId,
+            @RequestParam(defaultValue = "asc") String order) {
+        
+        List<Nota> notas = notaService.findByUsuarioId(usuarioId, order);
+        return ResponseEntity.ok(notas);
     }
 
     @PostMapping
-    public Nota createNota(@RequestParam Long usuarioId, @RequestBody Nota nota) {
-        Usuario usuario = new Usuario();
-        usuario.setId(usuarioId);
-        nota.setUsuario(usuario);
-        return notaService.save(nota);
+    public ResponseEntity<Nota> createNota(@Validated @RequestBody Nota nota) {
+        Nota nuevaNota = notaService.save(nota);
+        return ResponseEntity.status(HttpStatus.CREATED).body(nuevaNota);
     }
 
     @PutMapping("/{id}")
-    public Nota update(@PathVariable Long id, @RequestBody Nota nota) {
-        return notaService.update(id, nota);
+    public ResponseEntity<Nota> updateNota(
+            @PathVariable Long id,
+            @Validated @RequestBody Nota nota) {
+        
+        Nota notaActualizada = notaService.update(id, nota);
+        return ResponseEntity.ok(notaActualizada);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteNota(@PathVariable Long id) {
         notaService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
+
+    
 }

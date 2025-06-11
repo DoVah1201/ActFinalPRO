@@ -1,3 +1,4 @@
+
 package com.actfinal.ut7.src.main.java.com.actfinal.ut7.repository;
 
 import java.util.Optional;
@@ -10,6 +11,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     Optional<Usuario> findByEmail(String email);
 
     // Método para verificar si un usuario existe por su email
-    boolean existeEmail(String email);
+    boolean existsByEmail(String email);
 
 }
